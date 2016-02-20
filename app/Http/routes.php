@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//Route::get('/', 'AuthController@test');
 
 /*
 |--------------------------------------------------------------------------
@@ -28,4 +26,20 @@ Route::get('/', function () {
 
 Route::group(['middleware' => ['web']], function () {
     //
+});
+
+Route::group(['middleware' => 'web'], function () {
+    Route::auth();
+
+    Route::get('/', 'HomeController@index');
+
+    Route::get('landing', function() {
+    	$files = App\File::latest()->get();
+
+    	return view('landing', compact("files"));
+    });
+
+    Route::get('api/messages', function() {
+		return App\File::all();
+	});
 });

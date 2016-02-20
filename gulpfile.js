@@ -11,6 +11,14 @@ var elixir = require('laravel-elixir');
  |
  */
 
+require('laravel-elixir-postcss');
+ 
 elixir(function(mix) {
-    mix.sass('app.scss');
+  
+  //app.css, *.css, **/*.css     
+  mix.postcss('app.css')
+  	.version('public/css/app.css');
+  mix.scripts([
+  	'vendor/vue-resource.min.js'
+  	], 'public/js/vendor.js')
 });
