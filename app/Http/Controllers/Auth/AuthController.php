@@ -28,7 +28,7 @@ class AuthController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = 'landing';
+    protected $redirectTo = '/landing';
 
     /**
      * Create a new authentication controller instance.
@@ -38,6 +38,11 @@ class AuthController extends Controller
     public function __construct()
     {
         $this->middleware('guest', ['except' => 'logout']);
+    }
+
+    public function logout() {
+      Auth::logout(); // logout user
+      return Redirect::to('login'); //redirect back to login
     }
 
     /**

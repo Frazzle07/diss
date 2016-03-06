@@ -7,9 +7,9 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-class AuthController extends Controller
+class UploadController extends Controller
 {
-    public function test(){
-    	return \view('login', compact(""));
+    public function upload(Request $request){
+    	print_r($request->all());
     }
 }

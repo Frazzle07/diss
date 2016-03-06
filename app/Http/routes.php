@@ -24,22 +24,28 @@
 |
 */
 
-Route::group(['middleware' => ['web']], function () {
-    //
-});
-
 Route::group(['middleware' => 'web'], function () {
     Route::auth();
 
-    Route::get('/', 'HomeController@index');
-
-    Route::get('landing', function() {
-    	$files = App\File::latest()->get();
-
-    	return view('landing', compact("files"));
+    Route::get('/', function(){
+    	if(Auth::check()) {
+        	return redirect('landing');
+	    } else {
+	        return view('home');
+	    }
     });
 
-    Route::get('api/messages', function() {
-		return App\File::all();
-	});
+    Route::get('logout', function(){
+    	Auth::logout(); // logout user
+  		return Redirect::to('login'); //redirect back to login
+	})->middleware('auth');
+
+    Route::get('landing', 'PupilController@showFiles')->middleware('auth');
+
+    Route::post('/upload/{user}',[
+	    'as' => 'pupil.file.upload',
+	    'uses' => 'PupilController@uploadFile'
+	])->middleware('auth');
+    
+    Route::get('download/{file}', 'PupilController@downloadFile')->middleware('auth');
 });
