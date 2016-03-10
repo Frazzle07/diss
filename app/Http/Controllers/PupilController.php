@@ -42,7 +42,6 @@ class PupilController extends Controller
 
 			$user->files()->save($dbFile);
     	}
-    	$request->session()->flash('status', 'File was Saved Successfully!');
 	    return redirect('landing');
     }
 
@@ -53,11 +52,8 @@ class PupilController extends Controller
     	$hashFileName = File::where('name', $realFileName)->first();
     	$hashFileName = $hashFileName->hash; 
     	$path = public_path().'/uploads/'.$userID.'/'.$hashFileName;
-    	return response()->download($path);
+    	return response()->download($path, $realFileName);
 
-    	$request->session()->flash('status', 'File was Downloaded Successfully!');
     	return redirect('landing');
-
-    	//return view('show', compact('file'));
     }
 }

@@ -37,7 +37,9 @@
 			<input id="mainContainerInput" v-model="fileSearch" type="text"></input>
 			<ul id="mainContainerFiles">
 					<li class="mainContainerFile" v-for="file in list | filterBy fileSearch in 'name' | orderBy 'name'">
-						@{{ file.name + ' - ' + file.size + ' - ' + file.user_id }}
+						<a href="/download/@{{ file.id }}">
+							@{{ file.name | truncate '20' }} 
+						</a>
 					</li>
 			</ul>
 		</template>

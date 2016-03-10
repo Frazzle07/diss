@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en" ng-app="filestoreApp">
+<head>
+  <meta charset="utf-8">
+  <title>File Store Homepage</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+  <script src="bower_components/angular/angular.js"></script>
+</head>
+<body>
+	<header id="header">
+		<div id="headerInner">
+			<ul id="headerLeft">
+				<li id="headerLogo">Jake's Filestore</li>
+				<ul id="headerSearch">
+					<li>
+						<div id="label"><label for="headerSearchLogo" id="headerSearchLogo">search</label></div>
+        				<div id="input"><input type="text" name="headerSearchInput" id="headerSearchInput" placeholder="Search..."></div>
+					</li>
+				</ul>
+			</ul>	
+			<ul id="headerRight">My Account</ul>
+		</div>
+	</header>
+	<main id="mainContainer">Main Content</main>
+	<main id="sideContainer">Side Content</main>
+  <p>Nothing here {{'yet' + '!'}}</p>
+</body>
+</html>

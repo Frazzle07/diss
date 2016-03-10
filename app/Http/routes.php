@@ -27,25 +27,25 @@
 Route::group(['middleware' => 'web'], function () {
     Route::auth();
 
-    Route::get('/', function(){
-    	if(Auth::check()) {
-        	return redirect('landing');
-	    } else {
-	        return view('home');
-	    }
-    });
+    Route::get('/', 'HomeController@index');
 
     Route::get('logout', function(){
     	Auth::logout(); // logout user
   		return Redirect::to('login'); //redirect back to login
 	})->middleware('auth');
 
-    Route::get('landing', 'PupilController@showFiles')->middleware('auth');
+    
+    Route::get('admin', 'AdminController@index')->middleware('admin');
 
+    Route::get('teacher', 'TeacherController@index')->middleware('teacher');
+
+    Route::get('parent', 'ParentController@index')->middleware('parent');
+
+
+    Route::get('landing', 'PupilController@showFiles')->middleware('pupil');
     Route::post('/upload/{user}',[
 	    'as' => 'pupil.file.upload',
 	    'uses' => 'PupilController@uploadFile'
-	])->middleware('auth');
-    
-    Route::get('download/{file}', 'PupilController@downloadFile')->middleware('auth');
+	])->middleware('pupil');    
+    Route::get('download/{file}', 'PupilController@downloadFile')->middleware('pupil');
 });
