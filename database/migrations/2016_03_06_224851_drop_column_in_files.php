@@ -12,9 +12,9 @@ class DropColumnInFiles extends Migration
      */
     public function up()
     {
-        Schema::table('classrooms', function($table)
+        Schema::table('files', function($table)
         {
-            $table->dropColumn('teacher_id');
+            $table->dropColumn('userID');
         });
     }
 
