@@ -8,6 +8,16 @@ Vue.component('files',{
 	}
 })
 
+Vue.component('pupils',{
+	template: '#pupils-template',
+
+	props: ['list'],
+
+	created(){
+		this.list = JSON.parse(this.list);
+	}
+})
+
 Vue.filter('truncate', function(value, length) {
   if(value.length < length) {
     return value;
@@ -24,16 +34,4 @@ new Vue({
 	data: {
 		search: ''
 	},
-
-	/*ready: function(){
-		this.fetchFiles();
-	},
-
-	methods: {
-		fetchFiles: function() {
-			this.$http.get('/api/messages', function(files){
-				this.$set('files', files);
-			});
-		}
-	}*/
 })

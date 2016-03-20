@@ -20,21 +20,20 @@
 		
 	</aside>
 	<main id="mainContainer">
-		
-		@if (Auth::check())	
-			<h1>Hello {{ Auth::user()->name }} - {{ Auth::user()->id }}</h1>
-		@endif
+		<files list="{{ $files }}"></files>
 
-		<h2>Below Are Your Students</h2>
-
-		<pupils list="{{ $pupils }}"></pupils>
-
-		<template id="pupils-template">
+		<template id="files-template">
+			@if (Auth::check())
+				
+				<h1>Files for this {{ Auth::user()->name }} - {{ Auth::user()->id }}</h1>
+			@else
+				<h1>Files for this user</h1>
+			@endif
 			<input id="mainContainerInput" v-model="fileSearch" type="text"></input>
 			<ul id="mainContainerFiles">
-					<li class="mainContainerFile" v-for="pupil in list | filterBy fileSearch in 'name' | orderBy 'name'">
-						<a href="pupil/@{{ pupil.user_id }}">
-							@{{ pupil.name | truncate '20' }} 
+					<li class="mainContainerFile" v-for="file in list | filterBy fileSearch in 'name' | orderBy 'name'">
+						<a href="/download/@{{ file.id }}">
+							@{{ file.name | truncate '20' }} 
 						</a>
 					</li>
 			</ul>

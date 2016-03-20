@@ -38,6 +38,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('admin', 'AdminController@index')->middleware('admin');
 
     Route::get('teacher', 'TeacherController@index')->middleware('teacher');
+    Route::get('/pupil/{user}', 'TeacherController@showPupilFiles')->middleware('teacher');
 
     Route::get('parent', 'ParentController@index')->middleware('parent');
 

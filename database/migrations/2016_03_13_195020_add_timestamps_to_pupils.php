@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class DropColumnInFiles extends Migration
+class AddTimestampsToPupils extends Migration
 {
     /**
      * Run the migrations.
@@ -12,9 +12,8 @@ class DropColumnInFiles extends Migration
      */
     public function up()
     {
-        Schema::table('classrooms', function($table)
-        {
-            $table->dropColumn('teacher_id');
+        Schema::table('pupils', function ($table) {
+            $table->timestamps();
         });
     }
 

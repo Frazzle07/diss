@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class DropColumnInFiles extends Migration
+class DeleteClassroomColumn2 extends Migration
 {
     /**
      * Run the migrations.

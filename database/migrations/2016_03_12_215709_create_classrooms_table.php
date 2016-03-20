@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class DropColumnInFiles extends Migration
+class CreateClassroomsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,10 +12,11 @@ class DropColumnInFiles extends Migration
      */
     public function up()
     {
-        Schema::table('classrooms', function($table)
-        {
-            $table->dropColumn('teacher_id');
+        Schema::create('classrooms', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name');
         });
+
     }
 
     /**
