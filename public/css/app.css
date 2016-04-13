@@ -1,11 +1,20 @@
 * {
-	margin: 0px;
-	padding: 0px;
-	font-family: 'Alegreya Sans', sans-serif;
+  margin: 0px;
+  padding: 0px;
+  font-family: 'Source Sans Pro',sans-serif;
+}
+
+h1 { 
+  font-size: 2em; 
+}
+
+a:hover, a:visited, a:link, a:active
+{
+    text-decoration: none;
 }
 
 body {
-	background: #e3e0cf;
+  background: #e3e0cf;
   height: 100%;
 }
 
@@ -15,40 +24,88 @@ body li {
 }
 
 #header {
-  background: #c0dfd9;
+  background: #3c948b;
   display:flex;
   justify-content: space-between;
   overflow:auto;
-  padding: 10px;
+  padding: 15px;
+  align-items: center;
+}
+
+#headerLeft {
+  display:inline-block;
+  vertical-align:top;
 }
 
 #headerLogo {
-	display: inline-block;
+  display: inline-block;
+  padding: 12px;
+  font-weight: bold;
+  font-size: 2em;
 }
 
 #headerSearch {
   display: inline-block;
-  margin-left: 15px;
   font-size:0; 
 }
 
 #headerSearchInput {
-  height: 25px;
+  height: 33px;
   line-height: normal;
-  vertical-align: middle;
   border: none;
   padding: 5px;
+  width: 1000px
 }
 
 #headerSearchButton {
-  height: 35px;
+  height: 43px;
   width: 25px;
   line-height: normal;
   background: url("http://i.imgur.com/ePNPopY.png") no-repeat scroll center center #3b3a36;
   border: none;
   font-size: 0px;
   display: inline-block;
-  vertical-align: middle;
+  vertical-align: bottom;
+}
+
+.dropbtn {
+    background-color: #343434;
+    color: white;
+    padding: 13px;
+    border: none;
+    cursor: pointer;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+#headerRight:hover .dropdown-content {
+    display: block;
+}
+
+#headerRight:hover .dropbtn {
+    background-color: #856046;
+    transition:  background-color 0.5s;
+}
+
+.dropdown-content a:hover {
+  background-color: #f1f1f1
+}
+
+#headerRight {
+  color: #FFF;
+  text-decoration: none;
 }
 
 #mainContainer, #sideContainer {
@@ -57,21 +114,28 @@ body li {
 }
 
 #wrapper {
-  display: flex;
   justify-content: space-around;
   clear: both;
   height: 100%;
 }
 
 #mainContainer {
-	background: #FFF;
+  background: #e9ece5;
   width: 80%;
+  margin: 0px auto;
+}
+
+#mainContainerTitle {
+  padding: 20px;
+  background: #343434;
+  text-align: center;
+  color: #FFF;
+  margin-bottom: 10px;
 }
 
 #mainContainerFiles {
   display: flex;
   flex-wrap: wrap;
-
 }
 
 #mainContainerInput {
@@ -87,16 +151,148 @@ body li {
   width: 20%;
 }
 
+#operations-template {
+  padding: 20px;
+}
+
+#files-template {
+  padding: 20px;
+}
+
+.accountInfo {
+  background: #3c948b;
+  padding: 40px 26px;
+  margin: 10px 10px 10px 0px;
+  transition:  background-color 0.5s;
+}
+
+.accountInfo:hover {
+  background: #3c948b;
+  padding: 40px 26px;
+  margin: 10px 10px 10px 0px;
+  transition:  background-color 0.5s;
+}
+
+.mainContainerFile {
+  background: #3c948b;
+  padding: 40px 26px;
+  margin: 10px 10px 10px 0px;
+  transition:  background-color 0.5s;
+  min-width: 200px;
+}
+
+.mainContainerFile:hover {
+  background: #3c948b;
+  padding: 40px 26px;
+  margin: 10px 10px 10px 0px;
+  transition:  background-color 0.5s;
+}
+
+.mainContainerFile.pupil{
+  background: #e6af4b;
+  padding: 40px 26px;
+  margin: 10px 10px 10px 0px;
+  transition:  background-color 0.5s;
+}
+
+.mainContainerFile.teacher {
+  background: #e05038;
+  padding: 40px 26px;
+  margin: 10px 10px 10px 0px;
+  transition:  background-color 0.5s;
+}
+
+.mainContainerFile.admin {
+  background: #729f98;
+  padding: 40px 26px;
+  margin: 10px 10px 10px 0px;
+  transition:  background-color 0.5s;
+}
+
+.mainContainerFile.file {
+  background: #4D923B;
+  padding: 40px 26px;
+  margin: 10px 10px 10px 0px;
+  transition:  background-color 0.5s;
+}
+
+.mainContainerFile:hover, .mainContainerFile.pupil:hover, .mainContainerFile.file:hover, .mainContainerFile.admin:hover, .mainContainerFile.teacher:hover {
+  background: #c0dfd9;
+}
+
+.mainContainerFile a {
+  text-decoration: none;
+  color: black;
+}
+
+.mainContainerFileDelete {
+  background: #343434;
+  color: #FFF;
+  padding: 10px;
+}
+
+.mainContainerFileTitle {
+  color: #000;
+}
+
+#upload_button {
+  margin-top: 10px;
+  background-color: #343434;
+  border: none;
+  padding: 10px;
+  color: #FFF;
+  transition:  background-color 0.5s;
+}
+
+#upload_button:hover {
+  background-color: #856046;
+}
+
+#delete_button {
+  margin-top: 10px;
+  background-color: #e05038;
+  border: none;
+  padding: 10px;
+  color: #FFF;
+  transition:  background-color 0.5s;
+}
+
+#delete_button:hover {
+  background-color: #E07563;
+}
+
+#filters {
+  display: flex;
+}
+
+#filters input {
+  margin-right: 10px;
+  transition:  background-color 0.5s;
+}
+
+#filters input:Hover {
+  margin-right: 10px;
+  background: #c0dfd9;
+}
+
+#filters .off {
+  background-color: #e05038;
+}
+
+#filters .on {
+  background-color: #38e050;
+}
+
 /* Login Form Styling*/
 
 #loginForm {
-	padding: 40px;
-	width: 274px;
-	background-color: #FFF;
-	margin: 50px auto 10px;
-	border-radius: 2px;
-	box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-	overflow: hidden;
+  padding: 40px;
+  width: 274px;
+  background-color: #FFF;
+  margin: 50px auto 10px;
+  border-radius: 2px;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
 }
 
 #loginForm h1 {

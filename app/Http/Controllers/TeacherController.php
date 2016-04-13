@@ -13,7 +13,7 @@ class TeacherController extends Controller
     public function index(Request $request)
     {
     	//dd($request->user()->id);
-    	$teacher = Teacher::where('user_id', 7)->first();
+    	$teacher = Teacher::where('user_id', $request->user()->id)->first();
     	$classroomID = $teacher->classroom_id;
     	//dd($classroomID);
     	$pupils = Classroom::find($classroomID)->pupils;
@@ -27,6 +27,7 @@ class TeacherController extends Controller
     public function showPupilFiles(Request $request, User $user)
     {
     	$files = User::find($user->id)->files;
-    	return view('pupilFilestore', compact("files"));
+        $pupil = User::find($user->id)->name;
+    	return view('pupilFilestore', compact("files", "pupil"));
     }
 }

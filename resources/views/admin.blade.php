@@ -24,6 +24,8 @@
 			@if (Auth::check())	
 				<h1>Hello {{ Auth::user()->name }} - {{ Auth::user()->id }}</h1>
 			@endif
+
+			<input id="mainContainerInput" v-model="fileSearch" type="text"></input>
 			
 		</template>
 	</main>

@@ -18,6 +18,16 @@ Vue.component('pupils',{
 	}
 })
 
+Vue.component('children',{
+	template: '#children-template',
+
+	props: ['list'],
+
+	created(){
+		this.list = JSON.parse(this.list);
+	}
+})
+
 Vue.filter('truncate', function(value, length) {
   if(value.length < length) {
     return value;

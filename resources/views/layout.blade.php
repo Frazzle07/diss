@@ -9,9 +9,26 @@
     </head>
     <body>
     	<div id="app">
-        	@yield('content')
-        	<script src="js/vendor.js"></script>
-    		<script src="js/app.js"></script>
+            <header id="header">
+                    <div id="headerLogo">Filestore</div>
+                    <div id="headerSearch">
+                        <input id="headerSearchInput" v-model="fileSearch" type="text" placeholder="Search">
+                    </div>
+                <div id="headerRight">
+                    @if (Auth::check())
+                        <button class="dropbtn">{{ Auth::user()->name }}</button>
+                        <div class="dropdown-content">
+                            <a href="/logout">Logout</a>
+                        </div>
+                    @endif
+                </div>
+            </header>
+            <div id="wrapper">
+                	@yield('content')
+                	<script src="/js/vendor.js"></script>
+            		<script src="/js/app.js"></script>
+                </main>
+            </div>
         </div>
     </body>
 </html>

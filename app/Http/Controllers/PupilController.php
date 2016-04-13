@@ -20,11 +20,6 @@ class PupilController extends Controller
 
     public function uploadFile(Request $request, File $file, User $user){
     	$files = Input::file('files');
-	    $path = public_path().'uploads/'.Auth::user()->id;
-
-	    if (!file_exists($path)) {
-	    	Storage::MakeDirectory(public_path('uploads/'.Auth::user()->id));
-		}
 
 		foreach($files as $file) {
         	$name = $file->getClientOriginalName();
@@ -55,5 +50,20 @@ class PupilController extends Controller
     	return response()->download($path, $realFileName);
 
     	return redirect('landing');
+    }
+
+    public function deleteFile(Request $request, File $file)
+    {
+        echo "test";
+        $userID = Auth::user()->id;
+        $realFileName = $file->name;
+        $file = File::where('name', $realFileName)->first();
+        $hashFileName = $file->hash; 
+        $path = 'public/uploads/'.$userID.'/'.$hashFileName;
+        Storage::delete("$path");
+
+        $file->delete();
+
+        return redirect('landing');
     }
 }

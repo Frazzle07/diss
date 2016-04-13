@@ -49,4 +49,5 @@ Route::group(['middleware' => 'web'], function () {
 	    'uses' => 'PupilController@uploadFile'
 	])->middleware('pupil');    
     Route::get('download/{file}', 'PupilController@downloadFile')->middleware('pupil');
+    Route::get('delete/{file}', 'PupilController@deleteFile')->middleware('pupil');
 });
