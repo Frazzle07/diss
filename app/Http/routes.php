@@ -51,6 +51,9 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('download/{file}', 'PupilController@downloadFile')->middleware('pupil');
     Route::get('delete/{file}', 'PupilController@deleteFile')->middleware('pupil');
 
+    Route::patch('pupil/{pupil}', 'AdminController@updatePupil')->middleware('admin');
+    Route::post('add', 'AdminController@addUser')->middleware('admin');
+
     Route::any('/search/pupils',[
         'as' => 'pupil.search',
         'uses' => 'AdminController@pupilSearch'
@@ -61,17 +64,24 @@ Route::group(['middleware' => 'web'], function () {
         'uses' => 'AdminController@teacherSearch'
     ])->middleware('admin');  
 
-    /*Route::any('/search/admins',[
+    Route::any('/search/admins',[
         'as' => 'admin.search',
         'uses' => 'AdminController@adminSearch'
-    ])->middleware('admin');*/  
+    ])->middleware('admin');
 
     Route::any('/search/parents',[
         'as' => 'parent.search',
         'uses' => 'AdminController@parentSearch'
-    ])->middleware('admin'); 
+    ])->middleware('admin');
+
+    Route::any('/search/classrooms',[
+        'as' => 'classroom.search',
+        'uses' => 'AdminController@classroomSearch'
+    ])->middleware('admin');  
 
     Route::get('/search/teacher/{teacher}', 'AdminController@showTeacher')->middleware('admin'); 
     Route::get('/search/pupil/{pupil}', 'AdminController@showPupil')->middleware('admin'); 
     Route::get('/search/parent/{parent}', 'AdminController@showParent')->middleware('admin'); 
+    Route::get('/search/classroom/{classroom}', 'AdminController@showClassroom')->middleware('admin'); 
+    Route::get('/search/admin/{admin}', 'AdminController@showAdmin')->middleware('admin'); 
 });

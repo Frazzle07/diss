@@ -10,6 +10,8 @@ use App\Pupil;
 use App\Teacher;
 use App\Caregiver;
 use App\User;
+use App\Classroom;
+use App\Admin;
 
 class AdminController extends Controller
 {
@@ -54,7 +56,7 @@ class AdminController extends Controller
 	    return view('results', compact('parents', 'query'));
 	 }
 
-	 /*public function adminSearch(Request $request)
+	 public function adminSearch(Request $request)
 	{
 	   	// Gets the query string from our form submission 
 	    $query = Request::input('search');
@@ -64,7 +66,19 @@ class AdminController extends Controller
 	        
 		// returns a view and passes the view the list of articles and the original query.
 	    return view('results', compact('admins', 'query'));
-	 }*/
+	 }
+
+	 public function classroomSearch(Request $request)
+	{
+	   	// Gets the query string from our form submission 
+	    $query = Request::input('search');
+	    // Returns an array of articles that have the query string located somewhere within 
+	    // our articles titles. Paginates them so we can break up lots of search results.
+	  	$classrooms = Classroom::where('name', 'LIKE', '%' . $query . '%')->paginate(10);
+	        
+		// returns a view and passes the view the list of articles and the original query.
+	    return view('results', compact('classrooms', 'query'));
+	 }
 
 	public function showTeacher(Teacher $teacher)
     {
@@ -77,7 +91,8 @@ class AdminController extends Controller
     	$pupil = Pupil::find($pupil->id)->first();
     	$user = User::find($pupil->user_id);
     	$files = $user->files()->get();
-    	return view('display', compact("pupil", "files"));
+    	$parents = $pupil->caregivers()->get();
+    	return view('display', compact("pupil", "files", "parents"));
     }
 
     public function showParent(Caregiver $parent)
@@ -87,9 +102,33 @@ class AdminController extends Controller
     	return view('display', compact("parent", "children"));
     }
 
-    /*public function showAdmin(Teacher $teacher)
+    public function showClassroom(Classroom $classroom)
     {
-    	$teacher = Teacher::find($teacher->id)->first();
-    	return view('display', compact("teacher"));
-    }*/
+    	$classroom = Classroom::find($classroom->id)->first();
+    	$pupils = $classroom->pupils()->get();
+    	$teachers = $classroom->teachers()->get();
+    	return view('display', compact("classroom", "pupils", "teachers"));
+    }
+
+    public function showAdmin(Admin $admin)
+    {
+    	$admin = Admin::find($admin->id)->first();
+    	return view('display', compact("admin"));
+    }
+
+    public function updatePupil(Request $request, Pupil $pupil)
+    {
+    	$pupil->update(Request::all());
+
+    	return back();
+    }
+
+    public function addUser(Request $request)
+	{
+	    $this->validate(Request::all());  
+
+	    Auth::login($this->create($request->all()));
+
+	    return redirect($this->redirectPath());
+	}
 }

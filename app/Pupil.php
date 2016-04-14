@@ -6,6 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Pupil extends Model
 {
+	protected $fillable = [
+        'name', 'classroom',
+    ];
+
     public function classes(){
     	return $this->belongsTo(Classroom::class);
     }

@@ -23,6 +23,22 @@
 				</ul>
 			@endif
 		@endif
+
+		@if( isset($admins))
+		    @if (count($admins) === 0)
+				<p>Nothing Found</p>
+			@elseif (count($admins) >= 1)
+				<ul id="mainContainerFiles">
+				    @foreach($admins as $admin)
+				    	<a class="mainContainerFileTitle" href="admin/{{$admin->id}}">
+							<div class="mainContainerFile">
+								{{ $admin->name }} 
+							</div>
+						</a>
+				    @endforeach
+				</ul>
+			@endif
+		@endif
 		
 		@if( isset($parents))
 			@if (count($parents) === 0)
@@ -56,6 +72,22 @@
 			@endif
 		@endif
 
+
+		@if( isset($classrooms))
+			@if (count($classrooms) === 0)
+				<p>Nothing Found</p>
+			@elseif (count($classrooms) >= 1)
+				<ul id="mainContainerFiles">
+				    @foreach($classrooms as $classroom)
+				    	<a class="mainContainerFileTitle" href="classroom/{{ $classroom->id }}">
+							<div class="mainContainerFile">
+								{{ $classroom->name }} 
+							</div>
+						</a>
+				    @endforeach
+			    </ul>
+			@endif
+		@endif
 	</main>
 </div>
 
