@@ -50,4 +50,28 @@ Route::group(['middleware' => 'web'], function () {
 	])->middleware('pupil');    
     Route::get('download/{file}', 'PupilController@downloadFile')->middleware('pupil');
     Route::get('delete/{file}', 'PupilController@deleteFile')->middleware('pupil');
+
+    Route::any('/search/pupils',[
+        'as' => 'pupil.search',
+        'uses' => 'AdminController@pupilSearch'
+    ])->middleware('admin');  
+
+    Route::any('/search/teachers',[
+        'as' => 'teacher.search',
+        'uses' => 'AdminController@teacherSearch'
+    ])->middleware('admin');  
+
+    /*Route::any('/search/admins',[
+        'as' => 'admin.search',
+        'uses' => 'AdminController@adminSearch'
+    ])->middleware('admin');*/  
+
+    Route::any('/search/parents',[
+        'as' => 'parent.search',
+        'uses' => 'AdminController@parentSearch'
+    ])->middleware('admin'); 
+
+    Route::get('/search/teacher/{teacher}', 'AdminController@showTeacher')->middleware('admin'); 
+    Route::get('/search/pupil/{pupil}', 'AdminController@showPupil')->middleware('admin'); 
+    Route::get('/search/parent/{parent}', 'AdminController@showParent')->middleware('admin'); 
 });

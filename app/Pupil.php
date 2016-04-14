@@ -13,4 +13,8 @@ class Pupil extends Model
     public function caregivers(){
     	return $this->belongsToMany(Caregiver::class);
     }
+
+    public function files(){
+        return $this->hasMany(File::class);
+    }
 }

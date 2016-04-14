@@ -4,6 +4,8 @@
   font-family: 'Source Sans Pro',sans-serif;
 }
 
+[v-cloak] {display:none;}
+
 h1 { 
   font-size: 2em; 
 }
@@ -42,6 +44,10 @@ body li {
   padding: 12px;
   font-weight: bold;
   font-size: 2em;
+}
+
+#headerLogo a {
+  color: #000;
 }
 
 #headerSearch {
@@ -235,7 +241,11 @@ body li {
   color: #000;
 }
 
-#upload_button {
+.mainContainerSearch {
+  margin-top: 15px;
+}
+
+#upload_button, .search_button {
   margin-top: 10px;
   background-color: #343434;
   border: none;
@@ -244,7 +254,7 @@ body li {
   transition:  background-color 0.5s;
 }
 
-#upload_button:hover {
+#upload_button:hover, .search_button:hover {
   background-color: #856046;
 }
 
@@ -259,6 +269,18 @@ body li {
 
 #delete_button:hover {
   background-color: #E07563;
+}
+
+.search_details {
+  margin: 15px 0px;
+}
+
+.fade-transition {
+  transition: all .5s ease;
+}
+
+.fade-enter, .fade-leave {
+  opacity: 0;
 }
 
 #filters {

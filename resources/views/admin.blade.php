@@ -2,30 +2,48 @@
 
 @section('content')
 
-
-<header id="header">
-		<div id="headerLeft">
-			<div id="headerLogo"></div>
-			<div id="headerSearch">
-				<input id="headerSearchButton" type="submit" name="headerSearchButton" >
-				<input id="headerSearchInput" type="text" name="headerSearchInput" v-model="mainSearch" placeholder="Search…" >
-			</div>
-		</div>	
-		<div id="headerRight">
-			<a href="{{ URL::to('logout') }}">Logout</a>
-		</div>
-</header>
-<div id="wrapper">
-	<aside id="sideContainer">
-		
-	</aside>
 	<main id="mainContainer">
-		
-			@if (Auth::check())	
-				<h1>Hello {{ Auth::user()->name }} - {{ Auth::user()->id }}</h1>
-			@endif
 
-			<input id="mainContainerInput" v-model="fileSearch" type="text"></input>
+		<div id="mainContainerTitle">
+			<h1>Choose Your Operation Below</h1>
+		</div>
+
+		<div class="mainContainerButtons">
+			<button class="search_button" @click="set_show('puShow')">Search Pupils</button>
+			<button class="search_button" @click="set_show('tShow')">Search Teacher</button>
+			<button class="search_button" @click="set_show('aShow')">Search Admins</button>
+			<button class="search_button" @click="set_show('paShow')">Search Parents</button>
+		</div>
+
+
+		<div v-cloak class="mainContainerSearch" v-show="show == 'puShow'" transition="fade">
+			<h2>Pupil Search</h2>
+			{{ Form::open(array('route' => 'pupil.search')) }}
+		    {{ Form::text('search', null) }}
+			{{ Form::submit('Search') }}
+			{{ Form::close() }}
+		</div>
+
+		<div v-cloak class="mainContainerSearch" v-show="show == 'tShow'" transition="fade">
+			<h2>Teacher Search</h2>
+			{{ Form::open(array('route' => 'teacher.search')) }}
+		    {{ Form::text('search', null) }}
+			{{ Form::submit('Search') }}
+			{{ Form::close() }}
+		</div>
+
+		<div v-cloak class="mainContainerSearch" v-show="show == 'aShow'" transition="fade">
+			<!--  -->
+		</div>
+
+		<div v-cloak class="mainContainerSearch" v-show="show == 'paShow'" transition="fade">
+			<h2>Parent Search</h2>
+			{{ Form::open(array('route' => 'parent.search')) }}
+		    {{ Form::text('search', null) }}
+			{{ Form::submit('Search') }}
+			{{ Form::close() }}
+		</div>
+
 			
 		</template>
 	</main>

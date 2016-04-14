@@ -10,7 +10,7 @@
     <body>
     	<div id="app">
             <header id="header">
-                    <div id="headerLogo">Filestore</div>
+                    <div id="headerLogo"><a href="/">Filestore</a></div>
                     <div id="headerSearch">
                         <input id="headerSearchInput" v-model="fileSearch" type="text" placeholder="Search">
                     </div>

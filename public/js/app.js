@@ -42,6 +42,13 @@ new Vue({
 	el: '#app',
 
 	data: {
-		search: ''
+		search: '',
+		show: '',
 	},
+
+	methods: {
+		set_show: function(msg) {
+			this.show = msg;
+		}
+	}
 })
