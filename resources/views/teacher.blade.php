@@ -21,6 +21,30 @@
 				</li>
 			</ul>
 		</template>
+
+		<div id="mainContainerTitle">
+			<h1>Below Are Files To Be Marked</h1>
+		</div>
+
+		@foreach($toBeMarked as $markFile)	
+			<ul id="mainContainerFiles">
+				<a class="mainContainerFileTitle" href="download/@{{ file.id }}">
+					<div class="mainContainerFile">
+						{{ $markFile->filename }} 
+					</div>
+					<form method="post" action="setMark/{{$markFile->file_id}}">
+						{{ method_field('PATCH')}}
+						{{ csrf_field() }}
+						<div>
+							<input type="text" name="mark" placeholder="Mark..."></input>
+							<input type="hidden" name="marked" value="1"></input>
+							<input type="submit" name="submit" value="Submit"></input>
+						</div>
+					</form>
+				</a>
+			</ul>
+		@endforeach
+
 	</main>
 
 @stop

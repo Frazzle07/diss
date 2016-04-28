@@ -9,13 +9,16 @@ use App\Http\Requests;
 use Auth;
 use Input;
 use Storage;
+use App\Teacher;
+use App\Mark;
 
 class PupilController extends Controller
 {
     public function showFiles(Request $request)
     {
     	$files = User::find($request->user()->id)->files;
-    	return view('landing', compact("files"));
+        $toBeMarked = Mark::where('user_id', Auth::user()->id)->where('marked', '0')->get();
+    	return view('landing', compact("files", "toBeMarked"));
     }
 
     public function uploadFile(Request $request, File $file, User $user){
@@ -87,10 +90,32 @@ class PupilController extends Controller
         return redirect('landing');
     }
 
-    public function markFile(File $file){
+    public function markFile(File $file)
+    {
+        $mark = File::find($file->id);
+        $teachers = Teacher::all();
+  
+        return view('markFile', compact("mark", "teachers"));
+    }
 
-        $mark = File::find($file->id)->name;
-       
-        return view('markFile', compact("mark"));
+
+    public function addMarkFile(Request $request, File $file)
+    {
+        $newMarkFile = Mark::create([
+            'file_id' => $file->id,
+            'user_id' => Auth::user()->id,
+            'teacher_id' => $request->teacher,
+            'mark' => 0,
+            'comments' => $request->comments,
+            'filename' => $file->name,
+        ]);
+
+        if(!$newMarkFile) {
+            flash("There Were Errors When Sending the File to be Marked", "Fail");
+        } else {
+            flash("The File was Sent to be Marked", "Success");
+        }
+
+        return redirect('landing');
     }
 }

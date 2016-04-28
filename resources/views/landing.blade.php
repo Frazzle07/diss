@@ -38,8 +38,10 @@
 			<h1>Files Waiting To Be Marked</h1>
 		</div>
 
-		<ul id="mainContainerFiles">
-			<li>TEST</li>
-		</ul>
+		@foreach($toBeMarked as $markFile)	
+			<ul id="mainContainerFiles">
+				<li>{{$markFile->filename}}</li>
+			</ul>
+		@endforeach
 
 @stop

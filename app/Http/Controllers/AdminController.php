@@ -168,11 +168,11 @@ class AdminController extends Controller
     	return back();
     }
 
-    public function addClassroom(Request $request) {
+    public function addClassroom(Request $request) 
+    {
     	$this->validate($request, [
 	    	'classroom' => 'required'
 	    ]); 
-
 
 	    $class = Classroom::create([
             'name' => $request->classroom,

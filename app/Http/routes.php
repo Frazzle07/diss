@@ -61,8 +61,13 @@ Route::group(['middleware' => 'web'], function () {
     Route::patch('admin/{admin}', 'AdminController@updateAdmin')->middleware('admin');
     Route::patch('parent/{parent}', 'AdminController@updateParent')->middleware('admin');
     Route::patch('classroom/{classroom}', 'AdminController@updateClassroom')->middleware('admin');
+
+    Route::patch('setMark/{file}', 'TeacherController@updateMark')->middleware('teacher');
+
     Route::post('adduser', 'AdminController@addUser')->middleware('admin');
     Route::post('addclassroom', 'AdminController@addClassroom')->middleware('admin');
+
+    Route::post('mark/addmarkfile/{file}', 'PupilController@addMarkFile')->middleware('pupil');
 
     Route::any('/search/pupils',[
         'as' => 'pupil.search',

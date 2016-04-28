@@ -124,7 +124,7 @@
 				{!! csrf_field() !!}
 				<div>
 			        Name:
-			        <input type="text" name="name" value="{{ old('classroom') }}">
+			        <input type="text" name="classroom" value="{{ old('classroom') }}">
 			    </div>
 			    <div>
 			        <button type="submit">Add</button>
