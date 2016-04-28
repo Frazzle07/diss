@@ -21,13 +21,25 @@
 					<a class="mainContainerFileTitle" href="download/@{{ file.id }}">
 						<div class="mainContainerFile">
 							@{{ file.name | truncate '20' }} 
+							<div class="mainContainerFileMark">
+								@{{ file.mark }} 
+							</div>
 						</div>
 						<div>
 							<a class="mainContainerFileDelete" href="delete/@{{ file.id }}">Delete</a>
+							<a class="mainContainerFileDelete" href="mark/@{{ file.id }}">Send for Marking</a>
 						</div>
 					</a>
 				</li>
 			</ul>
 		</template>
+
+		<div id="mainContainerTitle">
+			<h1>Files Waiting To Be Marked</h1>
+		</div>
+
+		<ul id="mainContainerFiles">
+			<li>TEST</li>
+		</ul>
 
 @stop

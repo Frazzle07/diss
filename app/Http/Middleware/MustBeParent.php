@@ -17,7 +17,7 @@ class MustBeParent
     {
         $user = $request->user();
 
-        if ($user && $user->level == 'parent') {
+        if ($user && ($user->level == 'parent' || $user->level =='admin')) {
             return $next($request);
         }
 

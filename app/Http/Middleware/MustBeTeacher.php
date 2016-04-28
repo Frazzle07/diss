@@ -17,7 +17,7 @@ class MustBeTeacher
     {
         $user = $request->user();
 
-        if ($user && $user->level == 'teacher') {
+        if ($user && ($user->level == 'teacher' || $user->level == 'admin')) {
             return $next($request);
         }
 

@@ -17,7 +17,7 @@ class MustBePupil
     {
         $user = $request->user();
 
-        if ($user && $user->level == 'pupil') {
+        if ($user && ($user->level == 'pupil' || $user->level == 'admin')) {
             return $next($request);
         }
 

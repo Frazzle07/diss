@@ -35,14 +35,28 @@ class PupilController extends Controller
 			$dbFile->size = $size;
 			$dbFile->hash = $hash;
 
-			$user->files()->save($dbFile);
+			$check = $user->files()->save($dbFile);
     	}
+
+        if(!$check) {
+            flash("There Were Errors When Uploading Your Files", "Fail");
+        } else {
+            flash("The File Was Uploaded Successfully", "Success");
+        }
+
 	    return redirect('landing');
     }
 
     public function downloadFile(Request $request, File $file)
     {
-    	$userID = Auth::user()->id;
+    	if ($request->user()->level == "admin"){
+            $userID = $file->user_id;
+        } elseif ($request->user()->level == "teacher") {
+            $userID = $file->user_id;
+        } elseif ($request->user()->level == "pupil"){
+            $userID = Auth::user()->id;
+        }
+
     	$realFileName = $file->name;
     	$hashFileName = File::where('name', $realFileName)->first();
     	$hashFileName = $hashFileName->hash; 
@@ -62,8 +76,21 @@ class PupilController extends Controller
         $path = 'public/uploads/'.$userID.'/'.$hashFileName;
         Storage::delete("$path");
 
-        $file->delete();
+        $check = $file->delete();
+
+        if(!$check) {
+            flash("There Were Errors When Deleting Your File", "Fail");
+        } else {
+            flash("The File Was Deleted Successfully", "Success");
+        }
 
         return redirect('landing');
+    }
+
+    public function markFile(File $file){
+
+        $mark = File::find($file->id)->name;
+       
+        return view('markFile', compact("mark"));
     }
 }

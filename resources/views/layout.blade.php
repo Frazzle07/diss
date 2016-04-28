@@ -9,6 +9,9 @@
     </head>
     <body>
     	<div id="app">
+            @if (\Session::has("flash_message"))
+                <div class="Alert Alert--{{ ucwords(\Session::get('flash_message_type')) }}">{{ \Session::get("flash_message") }}</div>
+            @endif
             <header id="header">
                     <div id="headerLogo"><a href="/">Filestore</a></div>
                     <div id="headerSearch">

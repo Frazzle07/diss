@@ -52,5 +52,7 @@ class Kernel extends HttpKernel
         'teacher' => \App\Http\Middleware\MustBeTeacher::class,
         'pupil' => \App\Http\Middleware\MustBePupil::class,
         'parent' => \App\Http\Middleware\MustBeParent::class,
+        'public' => \App\Http\Middleware\PupilFileAccess::class,
+        'class' => \App\Http\Middleware\MustBeInClass::class,
     ];
 }

@@ -142,6 +142,7 @@ body li {
 #mainContainerFiles {
   display: flex;
   flex-wrap: wrap;
+  margin-bottom: 30px;
 }
 
 #mainContainerInput {
@@ -150,6 +151,16 @@ body li {
 
 .mainContainerFile {
   padding: 10px;
+  position: relative;
+}
+
+.mainContainerFileMark {
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  padding: 8px;
+  background: #343434;
+  color: #FFF;
 }
 
 #sideContainer {
@@ -196,7 +207,7 @@ body li {
 
 .mainContainerFile.pupil{
   background: #e6af4b;
-  padding: 40px 26px;
+  padding: 40px 26px;mainContainerFileMark
   margin: 10px 10px 10px 0px;
   transition:  background-color 0.5s;
 }
@@ -275,12 +286,43 @@ body li {
   margin: 15px 0px;
 }
 
+.search_details p{
+  margin-top: 5px;
+}
+
+.search_details textarea{
+  height: 15px;
+  vertical-align: middle;
+}
+
+.search_details label{
+  vertical-align: middle;
+}
+
 .fade-transition {
   transition: all .5s ease;
 }
 
 .fade-enter, .fade-leave {
   opacity: 0;
+}
+
+.Alert {
+  padding: 10px;
+}
+
+.Alert--Default {
+  background: #e9ece5;
+}
+
+.Alert--Success {
+  background: #dff0d8;
+  color: #3c763d;
+}
+
+.Alert--Fail {
+  background: #f2dede;
+  color: #a94442;
 }
 
 #filters {

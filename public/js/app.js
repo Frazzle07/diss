@@ -44,6 +44,7 @@ new Vue({
 	data: {
 		search: '',
 		show: '',
+		select: '',
 	},
 
 	methods: {
