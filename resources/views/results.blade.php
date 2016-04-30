@@ -17,6 +17,7 @@
 				    	<a class="mainContainerFileTitle" href="pupil/{{$pupil->id}}">
 							<div class="mainContainerFile">
 								{{ $pupil->name }} 
+								({{ $pupil->tag }})
 							</div>
 						</a>
 				    @endforeach

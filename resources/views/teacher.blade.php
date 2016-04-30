@@ -28,7 +28,7 @@
 
 		@foreach($toBeMarked as $markFile)	
 			<ul id="mainContainerFiles">
-				<a class="mainContainerFileTitle" href="download/@{{ file.id }}">
+				<a class="mainContainerFileTitle" href="download/{{ $markFile->file_id }}">
 					<div class="mainContainerFile">
 						{{ $markFile->filename }} 
 					</div>

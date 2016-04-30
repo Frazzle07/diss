@@ -188,7 +188,19 @@ class AdminController extends Controller
     }
 
     public function addUser(Request $request)
-	{
+	{   
+	    
+	    $tagStringFirst = substr($request->name, 0, 2);
+	    $tagString = strtoupper($tagStringFirst . substr($request->name, strpos($request->name, " ") + 1, 1));
+	    
+	    $dupilcateTag = Pupil::where("tag", 'LIKE', $tagString.'%')->orderBy('tag', 'desc')->first();
+
+	    if ($dupilcateTag->count()) { 
+	    	$tagNumbers = preg_replace("/[^0-9]/","",$dupilcateTag->tag);
+	    	$tagNumbers++;
+	    	$tag = $tagString . $tagNumbers;
+	    }
+
 	    $this->validate($request, [
 	    	'name' => 'required',
 	    	'email' => 'required|unique:users',
@@ -205,6 +217,8 @@ class AdminController extends Controller
         ]);
 	    
 	    $lastID = DB::getPdo()->lastInsertId();
+
+	    
 
         if ($request->level == 'parent') {
         	Caregiver::create([
@@ -227,6 +241,7 @@ class AdminController extends Controller
 	            'user_id' => $lastID,
 	            'name' => $request->name,
 	            'classroom_id' =>$request->classroom,
+	            'tag' => $tag,
     		]);
         }
 
