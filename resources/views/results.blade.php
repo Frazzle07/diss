@@ -20,8 +20,10 @@
 								({{ $pupil->tag }})
 							</div>
 						</a>
+
 				    @endforeach
 				</ul>
+				<?php echo $pupils->appends(Input::except('page'))->render(); ?>
 			@endif
 		@endif
 
@@ -37,6 +39,7 @@
 							</div>
 						</a>
 				    @endforeach
+				    <?php echo $admins->appends(Input::except('page'))->render(); ?>
 				</ul>
 			@endif
 		@endif
@@ -54,6 +57,7 @@
 						</a>
 				    @endforeach
 				</ul>
+				<?php echo $parents->appends(Input::except('page'))->render(); ?>
 			@endif
 		@endif
 
@@ -70,6 +74,7 @@
 						</a>
 				    @endforeach
 			    </ul>
+			    <?php echo $teachers->appends(Input::except('page'))->render(); ?>
 			@endif
 		@endif
 
@@ -87,6 +92,7 @@
 						</a>
 				    @endforeach
 			    </ul>
+			    <?php echo $classrooms->appends(Input::except('page'))->render(); ?>
 			@endif
 		@endif
 	</main>

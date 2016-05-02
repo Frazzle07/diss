@@ -28,6 +28,16 @@ Vue.component('children',{
 	}
 })
 
+Vue.component('submissions',{
+	template: '#submissions-template',
+
+	props: ['list'],
+
+	created(){
+		this.list = JSON.parse(this.list);
+	}
+})
+
 Vue.filter('truncate', function(value, length) {
   if(value.length < length) {
     return value;

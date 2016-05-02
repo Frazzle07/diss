@@ -18,7 +18,6 @@
             <header id="header">
                     <div id="headerLogo"><a href="/">Filestore</a></div>
                     <div id="headerSearch">
-                        <input id="headerSearchInput" v-model="fileSearch" type="text" placeholder="Search">
                     </div>
                 <div id="headerRight">
                     @if (Auth::check())

@@ -25,6 +25,15 @@ body li {
   list-style: none;
 }
 
+.pagination {
+  display: inline-flex;
+}
+
+.pagination li{
+  margin-right: 10px;
+}
+
+
 #header {
   background: #3c948b;
   display:flex;

@@ -11,6 +11,7 @@ use Input;
 use Storage;
 use App\Teacher;
 use App\Mark;
+use App\Submission;
 
 class PupilController extends Controller
 {
@@ -94,8 +95,9 @@ class PupilController extends Controller
     {
         $mark = File::find($file->id);
         $teachers = Teacher::all();
+        $submissions = Submission::orderBy('due_date', 'desc')->get();
   
-        return view('markFile', compact("mark", "teachers"));
+        return view('markFile', compact("mark", "teachers", "submissions"));
     }
 
 
@@ -108,6 +110,7 @@ class PupilController extends Controller
             'mark' => 0,
             'comments' => $request->comments,
             'filename' => $file->name,
+            'submission_id' => $request->submission,
         ]);
 
         if(!$newMarkFile) {

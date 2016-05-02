@@ -14,5 +14,6 @@ class Mark extends Model
 	    'mark',
 	    'comments',
 	    'filename',
+	    'submission_id',
 	];	
 }

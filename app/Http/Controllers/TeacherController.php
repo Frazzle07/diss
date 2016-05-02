@@ -8,8 +8,10 @@ use App\Classroom;
 use App\User;
 use App\Mark;
 use App\File;
+use App\Submission;
 use App\Http\Requests;
 use Auth;
+use Carbon\Carbon;
 
 class TeacherController extends Controller
 {
@@ -19,7 +21,8 @@ class TeacherController extends Controller
     	$classroomID = $teacher->classroom_id;
     	$pupils = Classroom::find($classroomID)->pupils;
         $toBeMarked = Mark::where('teacher_id', Auth::user()->id)->where('marked', '0')->get();
-        return view('teacher', compact("pupils", "toBeMarked"));
+        $submissions = Submission::where("due_date", ">", Carbon::now())->get();
+        return view('teacher', compact("pupils", "toBeMarked", "submissions"));
     }
 
     public function showPupilFiles(Request $request, User $user)
@@ -27,6 +30,20 @@ class TeacherController extends Controller
     	$files = User::find($user->id)->files;
         $pupil = User::find($user->id)->name;
     	return view('pupilFilestore', compact("files", "pupil"));
+    }
+
+    public function showSubmission(Submission $submission)
+    {
+        $toBeMarked = Mark::where('submission_id', $submission->id)->where('marked', 0)->get();
+        $marked = Mark::where('submission_id', $submission->id)->where('marked', 1)->get();
+        return view('submission', compact("submission", "toBeMarked", "marked"));
+    }
+
+    public function showPastSubmissions(User $user)
+    {
+        $teacher = Teacher::where("user_id", $user->id)->first();
+        $submissions = Submission::where("teacher_id", $teacher->id)->where("due_date", "<", Carbon::now())->get();
+        return view('pastSubmissions', compact("submissions"));
     }
 
     public function updateMark(Request $request, File $file)
@@ -40,6 +57,7 @@ class TeacherController extends Controller
         $file->save();
 
         $markedFile = Mark::where('file_id', $file->id)->first();
+        $markedFile->mark = $request->mark;
         $markedFile->marked = 1;
         $markedFile->save(); 
 

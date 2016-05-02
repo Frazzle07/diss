@@ -23,6 +23,13 @@
 			    Comments: <input type="text" name="comments">
 		    </div>
 		    <div>
+			    Submission Name: <select name="submission">
+		        	@foreach($submissions as $submission)
+		        		<option value="{{ $submission->id }}">{{ $submission->title }}</option>
+		        	@endforeach
+		        </select>
+		    </div>
+		    <div>
 		        <button type="submit">Add</button>
 		    </div>
 		    <input type="hidden" name="fileid" value="{{$mark->id}}"></input>

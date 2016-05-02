@@ -16,6 +16,7 @@
 		<files list="{{ $files }}"></files>
 
 		<template id="files-template">	
+	    	<input id="headerSearchInput" v-model="fileSearch" type="text" placeholder="Search">
 			<ul id="mainContainerFiles">
 				<li v-for="file in list | filterBy fileSearch in 'name' | orderBy 'name'">
 					<a class="mainContainerFileTitle" href="download/@{{ file.id }}">

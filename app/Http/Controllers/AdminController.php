@@ -288,9 +288,4 @@ class AdminController extends Controller
 
 		return back();
 	}
-
-	public function deleteUser(Request $request) {
-		dd($request);
-		return back();
-	}
 }

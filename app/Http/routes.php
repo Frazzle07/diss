@@ -29,6 +29,11 @@ Route::group(['middleware' => 'web'], function () {
 
     Route::get('/', 'HomeController@index');
 
+
+    Route::get('resetpassword', function(){
+        return view('/auth/passwords/email');
+    })->middleware('auth');
+
     Route::get('logout', function(){
     	Auth::logout(); // logout user
   		return Redirect::to('login'); //redirect back to login
@@ -51,7 +56,8 @@ Route::group(['middleware' => 'web'], function () {
 
     Route::get('mark/{file}', 'PupilController@markFile')->middleware('pupil');
 
-     
+    Route::get('submission/{submission}', 'TeacherController@showSubmission')->middleware('teacher');
+    Route::get('pastsubmissions/{user}', 'TeacherController@showPastSubmissions')->middleware('teacher');
 
     Route::get('download/{file}', 'PupilController@downloadFile')->middleware('public');
     Route::get('delete/{file}', 'PupilController@deleteFile')->middleware('pupil');
