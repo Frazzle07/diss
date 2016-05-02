@@ -24,9 +24,7 @@ class PupilFileAccess
         if ($user->level == 'teacher'){
             $classroom_id = Teacher::where('user_id', $user->id)->first()->classroom_id;
             $fileOwnerID = $request->route("file")->user_id;
-            $fileOwnerUser = File::where('id', $fileOwnerID)->first()->user()->first();
-            dd($fileOwnerUser);
-            $fileOwner = Pupil::where('user_id', $fileOwnerUser->id)->first()->classroom_id;
+            $fileOwner = Pupil::where('user_id', $fileOwnerID)->first()->classroom_id;
         }
         
         if ($user && ($user->level == 'pupil' || $user->level == 'admin' || ($user->level == 'teacher' && $classroom_id == $fileOwner))) {

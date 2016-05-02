@@ -12,7 +12,7 @@
 			@if (count($toBeMarked))
 				@foreach($toBeMarked as $markFile)
 				<div id="fileMark">
-					<a class="mainContainerFileTitle" href="download/{{ $markFile->file_id }}">
+					<a class="mainContainerFileTitle" href="/download/{{ $markFile->file_id }}">
 						<div class="mainContainerFile">
 							{{ $markFile->filename }} 
 						</div>
@@ -42,7 +42,8 @@
 			@if (count($marked))
 				@foreach($marked as $markFile)
 				<div id="fileMark">
-					<a class="mainContainerFileTitle" href="download/{{ $markFile->file_id }}">
+				<p>{{$markFile->file_id}}</p>
+					<a class="mainContainerFileTitle" href="/download/{{ $markFile->file_id }}">
 						<div class="mainContainerFile">
 							{{ $markFile->filename }} 
 							<div class="mainContainerFileMark">

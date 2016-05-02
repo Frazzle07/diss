@@ -17,7 +17,7 @@ class PupilController extends Controller
 {
     public function showFiles(Request $request)
     {
-    	$files = User::find($request->user()->id)->files;
+    	$files = User::find($request->user()->id)->files()->where('deleted', 0)->get();
         $toBeMarked = Mark::where('user_id', Auth::user()->id)->where('marked', '0')->paginate(10);
     	return view('landing', compact("files", "toBeMarked"));
     }
@@ -60,7 +60,7 @@ class PupilController extends Controller
         } elseif ($request->user()->level == "parent"){
             $userID = $file->user_id;
         }
-        
+
     	$realFileName = $file->name;
     	$hashFileName = $file->hash;
     	$path = public_path().'/uploads/'.$userID.'/'.$hashFileName;
@@ -71,7 +71,6 @@ class PupilController extends Controller
 
     public function deleteFile(Request $request, File $file)
     {
-        echo "test";
         $userID = Auth::user()->id;
         $realFileName = $file->name;
         $file = File::where('name', $realFileName)->first();
@@ -79,7 +78,8 @@ class PupilController extends Controller
         $path = 'public/uploads/'.$userID.'/'.$hashFileName;
         Storage::delete("$path");
 
-        $check = $file->delete();
+        $file->deleted = 1;
+        $check = $file->save();
 
         if(!$check) {
             flash("There Were Errors When Deleting Your File", "Fail");

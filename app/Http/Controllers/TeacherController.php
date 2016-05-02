@@ -27,7 +27,7 @@ class TeacherController extends Controller
 
     public function showPupilFiles(Request $request, User $user)
     {
-    	$files = User::find($user->id)->files;
+    	$files = User::find($user->id)->files->where('deleted', 0)->get();
         $pupil = User::find($user->id)->name;
     	return view('pupilFilestore', compact("files", "pupil"));
     }
