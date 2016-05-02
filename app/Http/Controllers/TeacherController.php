@@ -21,7 +21,7 @@ class TeacherController extends Controller
     	$classroomID = $teacher->classroom_id;
     	$pupils = Classroom::find($classroomID)->pupils;
         $toBeMarked = Mark::where('teacher_id', Auth::user()->id)->where('marked', '0')->get();
-        $submissions = Submission::where("due_date", ">", Carbon::now())->paginate(10);
+        $submissions = Submission::where("due_date", ">", Carbon::now())->where('classroom_id', $classroomID)->paginate(10);
         return view('teacher', compact("pupils", "toBeMarked", "submissions"));
     }
 
@@ -43,8 +43,39 @@ class TeacherController extends Controller
     {
         $teacher = Teacher::where("user_id", $user->id)->first();
         $submissions = Submission::where("teacher_id", $teacher->id)->where("due_date", "<", Carbon::now())->paginate(10);
-        dd($submissions);
         return view('pastSubmissions', compact("submissions"));
+    }
+
+    public function addSubmission(Request $request)
+    {
+        $this->validate($request, [
+            'name' => 'required',
+            'due_date' => 'required|date_format:Y-m-d',
+        ]); 
+
+        $teacher = Teacher::where("user_id", Auth::user()->id)->first();
+        $classroom_id = $teacher->classroom_id;
+        $teacher_id = $teacher->user_id;
+
+        $newSubmission = Submission::create([
+            'title' => $request->name,
+            'due_date' => $request->due_date,
+            'classroom_id' => $classroom_id,
+            'teacher_id' => $teacher_id,
+        ]);
+
+         if(!$newSubmission) {
+            flash("There Were Errors When Creating the Submission", "Fail");
+        } else {
+            flash("The Submission Was Created", "Success");
+        }
+
+        return redirect('/');
+    }
+
+    public function setSubmission(User $user)
+    {
+        return view('addSubmission');
     }
 
     public function updateMark(Request $request, File $file)

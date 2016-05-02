@@ -41,7 +41,9 @@
 
 		@foreach($toBeMarked as $markFile)	
 			<ul id="mainContainerFiles">
-				<li>{{$markFile->filename}}</li>
+				<div class="mainContainerFile">
+					<li>{{$markFile->filename}}</li>
+				</div>
 			</ul>
 		@endforeach
 		<?php echo $toBeMarked->appends(Input::except('page'))->render(); ?>

@@ -33,7 +33,7 @@ class AdminController extends Controller
 	    $query = Input::get('search');
 	    // Returns an array of articles that have the query string located somewhere within 
 	    // our articles titles. Paginates them so we can break up lots of search results.
-	  	$pupils = Pupil::where('name', 'LIKE', '%' . $query . '%')->paginate(10);
+	  	$pupils = Pupil::where('name', 'LIKE', '%' . $query . '%')->paginate(4);
 	        
 		// returns a view and passes the view the list of articles and the original query.
 	    return view('results', compact('pupils', 'query'));
@@ -91,17 +91,19 @@ class AdminController extends Controller
     {
     	$teacher = Teacher::find($teacher->id);
     	$classrooms = Classroom::where("id", $teacher->classroom_id)->get();
-    	return view('display', compact("teacher", "classrooms"));
+    	$allClassrooms = Classroom::all();
+    	return view('display', compact("teacher", "classrooms", "allClassrooms"));
     }
 
     public function showPupil(Pupil $pupil)
     {
     	$pupil = Pupil::find($pupil->id);
     	$user = User::find($pupil->user_id);
-    	$classrooms = Classroom::where("id", $pupil->classroom_id)->get();
+    	$pupilClassroom = Classroom::where("id", $pupil->classroom_id)->first();
+    	$classrooms = Classroom::all();
     	$files = $user->files()->get();
     	$parents = $pupil->caregivers()->get();
-    	return view('display', compact("pupil", "files", "parents", "classrooms"));
+    	return view('display', compact("pupil", "files", "parents", "pupilClassroom", "classrooms"));
     }
 
     public function showParent(Caregiver $parent)
@@ -219,10 +221,12 @@ class AdminController extends Controller
 	    
 	    $dupilcateTag = Pupil::where("tag", 'LIKE', $tagString.'%')->orderBy('tag', 'desc')->first();
 
-	    if ($dupilcateTag->count()) { 
+	    if ( !is_null($dupilcateTag) ) {
 	    	$tagNumbers = preg_replace("/[^0-9]/","",$dupilcateTag->tag);
 	    	$tagNumbers++;
 	    	$tag = $tagString . $tagNumbers;
+	    } else {
+	    	$tag = $tagString . 1;
 	    }
 
 	    $this->validate($request, [
@@ -238,6 +242,7 @@ class AdminController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password),
+            'level' => $request->level,
         ]);
 	    
 	    $lastID = DB::getPdo()->lastInsertId();
@@ -282,34 +287,34 @@ class AdminController extends Controller
 		$teacher = Teacher::find($teacher->id);
 		$teacher->delete();
 
-		return back();
+		return redirect('/');
 	}
 
 	public function deleteClassroom(Classroom $classroom) {
 		$classroom = Classroom::find($classroom->id);
 		$classroom->delete();
 
-		return back();
+		return redirect('/');
 	}
 
 	public function deleteAdmin(Admin $admin) {
 		$admin = Admin::find($admin->id);
 		$admin->delete();
 
-		return back();
+		return redirect('/');
 	}
 
 	public function deleteParent(Parent $parent) {
 		$parent = Parent::find($parent->id);
 		$parent->delete();
 
-		return back();
+		return redirect('/');
 	}
 
 	public function deletePupil(Pupil $pupil) {
 		$pupil = Pupil::find($pupil->id);
 		$pupil->delete();
 
-		return back();
+		return redirect('/');
 	}
 }

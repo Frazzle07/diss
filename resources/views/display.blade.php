@@ -30,7 +30,13 @@
 					<p>ID: {{$teacher->id}}</p>
 					<p>Name: <textarea name="name">{{$teacher->name}}</textarea></p>
 					<p>User ID: {{$teacher->user_id}}</p>
-					<p>Classroom: <textarea name="classroom_id">{{$teacher->classroom_id}}</textarea></p>
+					<p>Classroom: 
+						<select name="classroom_id">
+				        	@foreach($allClassrooms as $classroom2)
+				        		<option value="{{ $classroom2->id }}">{{ $classroom2->name }}</option>
+				        	@endforeach
+				        </select>
+					</p>
 					<button class="search_button" type="submit">Save</button>
 				</form>
 				<form method="POST" action="/delete/teacher/{{$teacher->id}}" onsubmit="return confirm('Do you really want to delete this teacher?');">
@@ -84,7 +90,7 @@
 					<p>User ID: {{$pupil->user_id}}</p>
 
 					<p>Classroom: 
-						<select name="classroom" value="{{ old('classroom') }}">
+						<select name="classroom_id" value="{{ $pupilClassroom->id }} ">
 				        	@foreach($classrooms as $class)
 				        		<option value="{{ $class->id }}">{{ $class->name }}</option>
 				        	@endforeach
@@ -126,13 +132,11 @@
 				<h1>{{$pupil->name}}'s Classroom</h1>
 			</div>
 			<ul id="mainContainerFiles">
-			    @foreach($classrooms as $class)
-			    	<a class="mainContainerFileTitle" href="/search/classroom/{{ $class->id }}">
+			    	<a class="mainContainerFileTitle" href="/search/classroom/{{ $pupilClassroom->id }}">
 						<div class="mainContainerFile">
-							{{ $class->name }} 
+							{{ $pupilClassroom->name }} 
 						</div>
 					</a>
-			    @endforeach
 			</ul>
 		@endif
 

@@ -25,6 +25,10 @@ body li {
   list-style: none;
 }
 
+.late {
+  color: red;
+}
+
 .pagination {
   display: inline-flex;
 }

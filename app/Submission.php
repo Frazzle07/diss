@@ -6,5 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Submission extends Model
 {
-    protected $dates = ['due_date'];
+    protected $fillable = [
+        'title', 'classroom_id', 'teacher_id', 'due_date'
+    ];
+
 }

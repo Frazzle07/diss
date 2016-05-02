@@ -28,6 +28,7 @@
 			<h1>Below Are Currently Active Submissions</h1>
 		</div>
 
+		<a class="mainContainerFileDelete" href="createsubmission">Create Submission</a>
 		<a class="mainContainerFileDelete" href="pastsubmissions/{{Auth::user()->id}}">Past Submissions</a>
 
 		<ul id="mainContainerFiles">
@@ -39,7 +40,7 @@
 								<div class="mainContainerFile">
 									{{ $submission->title }} 
 									<br>
-									Due: {{ $submission->due_date->format('d/m/Y') }} 
+									Due: {{ $submission->due_date }} 
 								</div>
 							</a>
 						</div>

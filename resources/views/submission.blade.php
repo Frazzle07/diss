@@ -15,6 +15,10 @@
 					<a class="mainContainerFileTitle" href="/download/{{ $markFile->file_id }}">
 						<div class="mainContainerFile">
 							{{ $markFile->filename }} 
+							@if ($markFile->late == 1)
+								<br>
+								<p class="late">LATE</p>
+							@endif
 						</div>
 					</a>
 					<form method="post" action="/setMark/{{$markFile->file_id}}">
@@ -42,10 +46,13 @@
 			@if (count($marked))
 				@foreach($marked as $markFile)
 				<div id="fileMark">
-				<p>{{$markFile->file_id}}</p>
 					<a class="mainContainerFileTitle" href="/download/{{ $markFile->file_id }}">
 						<div class="mainContainerFile">
 							{{ $markFile->filename }} 
+							@if ($markFile->late == 1)
+								<br>
+								<p class="late">LATE</p>
+							@endif
 							<div class="mainContainerFileMark">
 								{{ $markFile->mark }} 
 							</div>

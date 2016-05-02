@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Pupil;
 use App\File;
 use App\Http\Requests;
 use Auth;
@@ -12,6 +13,7 @@ use Storage;
 use App\Teacher;
 use App\Mark;
 use App\Submission;
+use Carbon\Carbon;
 
 class PupilController extends Controller
 {
@@ -100,7 +102,8 @@ class PupilController extends Controller
     {
         $mark = File::find($file->id);
         $teachers = Teacher::all();
-        $submissions = Submission::orderBy('due_date', 'desc')->get();
+        $pupilClass = Pupil::where('user_id', Auth::user()->id)->first()->classroom_id;
+        $submissions = Submission::where('classroom_id', $pupilClass)->orderBy('due_date', 'desc')->get();
   
         return view('markFile', compact("mark", "teachers", "submissions"));
     }
@@ -108,6 +111,13 @@ class PupilController extends Controller
 
     public function addMarkFile(Request $request, File $file)
     {
+        $submission = Submission::where('id', $request->submission)->first();
+        if($submission->due_date < Carbon::now()->toDateString()){
+            $late = 1;
+        } else {
+            $late = 0;
+        }
+
         $newMarkFile = Mark::create([
             'file_id' => $file->id,
             'user_id' => Auth::user()->id,
@@ -116,6 +126,7 @@ class PupilController extends Controller
             'comments' => $request->comments,
             'filename' => $file->name,
             'submission_id' => $request->submission,
+            'late' => $late,
         ]);
 
         if(!$newMarkFile) {

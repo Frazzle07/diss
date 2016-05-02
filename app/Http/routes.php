@@ -28,6 +28,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::auth();
 
     Route::get('/', 'HomeController@index');
+    Route::any('/auth/register','HomeController@index');
 
 
     Route::get('resetpassword', function(){
@@ -58,6 +59,8 @@ Route::group(['middleware' => 'web'], function () {
 
     Route::get('submission/{submission}', 'TeacherController@showSubmission')->middleware('teacher');
     Route::get('pastsubmissions/{user}', 'TeacherController@showPastSubmissions')->middleware('teacher');
+    Route::get('createsubmission', 'TeacherController@setSubmission')->middleware('teacher');
+    Route::post('addsubmission', 'TeacherController@addSubmission')->middleware('teacher');
 
     Route::get('download/{file}', 'PupilController@downloadFile')->middleware('public');
     Route::get('delete/{file}', 'PupilController@deleteFile')->middleware('pupil');
