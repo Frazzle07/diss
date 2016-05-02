@@ -26,7 +26,13 @@ class PupilController extends Controller
     	$files = Input::file('files');
 
 		foreach($files as $file) {
+
         	$name = $file->getClientOriginalName();
+            $duplicate = File::where('deleted', 0)->where('user_id', Auth::user()->id)->where('name', $name)->first();
+            if (count($duplicate)) { 
+                flash("Please Rename Your File To Something Unique", "Fail");
+                return redirect('landing');
+            }
 			$size = $file->getSize();
 			$hash = $file->getFileName();
 
@@ -73,7 +79,7 @@ class PupilController extends Controller
     {
         $userID = Auth::user()->id;
         $realFileName = $file->name;
-        $file = File::where('name', $realFileName)->first();
+        $file = File::where('name', $realFileName)->where('deleted', 0)->where('user_id', Auth::user()->id)->first();
         $hashFileName = $file->hash; 
         $path = 'public/uploads/'.$userID.'/'.$hashFileName;
         Storage::delete("$path");
