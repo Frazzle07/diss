@@ -103,7 +103,6 @@
 			</div>
 			<ul id="mainContainerFiles">
 			    @foreach($files as $file)
-			    	<p>{{ $file->id }}</p>
 			    	<a class="mainContainerFileTitle" href="/download/{{ $file->id }}">
 						<div class="mainContainerFile">
 							{{ $file->name }} 

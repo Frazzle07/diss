@@ -72,6 +72,7 @@ Route::group(['middleware' => 'web'], function () {
 
     Route::post('adduser', 'AdminController@addUser')->middleware('admin');
     Route::post('addclassroom', 'AdminController@addClassroom')->middleware('admin');
+    Route::post('addrelationship', 'AdminController@addRelationship')->middleware('admin');
 
     Route::post('mark/addmarkfile/{file}', 'PupilController@addMarkFile')->middleware('pupil');
 

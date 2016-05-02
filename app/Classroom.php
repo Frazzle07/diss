@@ -18,4 +18,9 @@ class Classroom extends Model
     public function pupils(){
     	return $this->hasMany(Pupil::class);
     }
+
+    public function getPupilsPaginated()
+	{
+	    return $this->pupils()->paginate(10);
+	}
 }

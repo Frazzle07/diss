@@ -44,5 +44,6 @@
 				<li>{{$markFile->filename}}</li>
 			</ul>
 		@endforeach
+		<?php echo $toBeMarked->appends(Input::except('page'))->render(); ?>
 
 @stop

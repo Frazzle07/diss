@@ -16,6 +16,7 @@
 			<button class="search_button" @click="set_show('cShow')">Search Classroom</button>
 			<button class="search_button" @click="set_show('addShow')">Add User</button>
 			<button class="search_button" @click="set_show('addClassroom')">Add Classroom</button>
+			<button class="search_button" @click="set_show('addRelationship')">Add Relationship</button>
 		</div>
 
 
@@ -125,6 +126,34 @@
 				<div>
 			        Name:
 			        <input type="text" name="classroom" value="{{ old('classroom') }}">
+			    </div>
+			    <div>
+			        <button type="submit">Add</button>
+			    </div>
+			</form>
+		</div>
+
+		<div v-cloak class="mainContainerSearch" v-show="show == 'addRelationship'" transition="fade">
+			<h2>Add Parent Student Relationship</h2>
+			<form method="POST" action="/addrelationship">
+				{!! csrf_field() !!}
+				<div>
+			        Parent:
+			        <select name="parent">
+			        		<option value=""></option>
+			        	@foreach($parents as $parent)
+			        		<option value="{{ $parent->id }}">{{ $parent->name }}</option>
+			        	@endforeach
+			        </select>
+			    </div>
+			    <div>
+			        Child:
+			        <select name="pupil">
+			        		<option value=""></option>
+			        	@foreach($pupils as $pupil)
+			        		<option value="{{ $pupil->id }}">{{ $pupil->name }}</option>
+			        	@endforeach
+			        </select>
 			    </div>
 			    <div>
 			        <button type="submit">Add</button>

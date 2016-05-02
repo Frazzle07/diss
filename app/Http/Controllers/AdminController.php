@@ -22,7 +22,9 @@ class AdminController extends Controller
     {
     	$items = Level::all('name');
     	$classrooms = Classroom::all('id', 'name');
-    	return view('admin', compact("items", "classrooms"));
+    	$parents = Caregiver::all('id', 'name');
+    	$pupils = Pupil::all('id', 'name');
+    	return view('admin', compact("items", "classrooms", "parents", "pupils"));
     }
 
     public function pupilSearch(Request $request)
@@ -182,6 +184,28 @@ class AdminController extends Controller
         	flash("There Were Errors When Creating The New Classroom", "Fail");
         } else {
         	flash("The Classroom Was Created Successfully", "Success");
+        }
+
+        return back();
+    }
+
+    public function addRelationship(Request $request)
+    {
+    	
+    	$this->validate($request, [
+	    	'parent' => 'required',
+	    	'pupil' => 'required'
+	    ]); 
+
+    	$relationship = DB::table('caregiver_pupil')->insert(
+		    array('caregiver_id' => $request->parent,
+		          'pupil_id' => $request->pupil)
+		);
+
+		if(!$relationship) {
+        	flash("There Were Errors When Creating The New Relationship", "Fail");
+        } else {
+        	flash("The Relationship Was Created Successfully", "Success");
         }
 
         return back();

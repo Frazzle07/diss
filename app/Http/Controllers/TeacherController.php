@@ -21,7 +21,7 @@ class TeacherController extends Controller
     	$classroomID = $teacher->classroom_id;
     	$pupils = Classroom::find($classroomID)->pupils;
         $toBeMarked = Mark::where('teacher_id', Auth::user()->id)->where('marked', '0')->get();
-        $submissions = Submission::where("due_date", ">", Carbon::now())->get();
+        $submissions = Submission::where("due_date", ">", Carbon::now())->paginate(10);
         return view('teacher', compact("pupils", "toBeMarked", "submissions"));
     }
 
@@ -34,15 +34,16 @@ class TeacherController extends Controller
 
     public function showSubmission(Submission $submission)
     {
-        $toBeMarked = Mark::where('submission_id', $submission->id)->where('marked', 0)->get();
-        $marked = Mark::where('submission_id', $submission->id)->where('marked', 1)->get();
+        $toBeMarked = Mark::where('submission_id', $submission->id)->where('marked', 0)->paginate(10);
+        $marked = Mark::where('submission_id', $submission->id)->where('marked', 1)->paginate(10);
         return view('submission', compact("submission", "toBeMarked", "marked"));
     }
 
     public function showPastSubmissions(User $user)
     {
         $teacher = Teacher::where("user_id", $user->id)->first();
-        $submissions = Submission::where("teacher_id", $teacher->id)->where("due_date", "<", Carbon::now())->get();
+        $submissions = Submission::where("teacher_id", $teacher->id)->where("due_date", "<", Carbon::now())->paginate(10);
+        dd($submissions);
         return view('pastSubmissions', compact("submissions"));
     }
 

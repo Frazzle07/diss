@@ -28,6 +28,7 @@
 					</form>
 				</div>
 				@endforeach
+				<?php echo $toBeMarked->appends(Input::except('page'))->render(); ?>
 			@else
 				<p>No Files Have Been Submitted</p>
 			@endif
@@ -60,6 +61,7 @@
 					</form>
 				</div>
 				@endforeach
+				<?php echo $marked->appends(Input::except('page'))->render(); ?>
 			@else
 				<p>No Files Have Been Marked</p>
 			@endif

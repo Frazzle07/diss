@@ -18,7 +18,7 @@ class PupilController extends Controller
     public function showFiles(Request $request)
     {
     	$files = User::find($request->user()->id)->files;
-        $toBeMarked = Mark::where('user_id', Auth::user()->id)->where('marked', '0')->get();
+        $toBeMarked = Mark::where('user_id', Auth::user()->id)->where('marked', '0')->paginate(10);
     	return view('landing', compact("files", "toBeMarked"));
     }
 
@@ -31,8 +31,6 @@ class PupilController extends Controller
 			$hash = $file->getFileName();
 
 			$file->move('uploads/'.Auth::user()->id);
-
-			$ranName = Input::get('my_pdf');
 
 			$dbFile = new File;
 			$dbFile->name = $name;
@@ -59,11 +57,12 @@ class PupilController extends Controller
             $userID = $file->user_id;
         } elseif ($request->user()->level == "pupil"){
             $userID = Auth::user()->id;
+        } elseif ($request->user()->level == "parent"){
+            $userID = $file->user_id;
         }
-
+        
     	$realFileName = $file->name;
-    	$hashFileName = File::where('name', $realFileName)->first();
-    	$hashFileName = $hashFileName->hash; 
+    	$hashFileName = $file->hash;
     	$path = public_path().'/uploads/'.$userID.'/'.$hashFileName;
     	return response()->download($path, $realFileName);
 

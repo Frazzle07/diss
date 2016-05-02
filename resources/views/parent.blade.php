@@ -11,7 +11,6 @@
 		<children list="{{ $children }}"></children>
 
 		<template id="children-template">
-			<input id="headerSearchInput" v-model="fileSearch" type="text" placeholder="Search">
 			<ul id="mainContainerFiles">
 				<li v-for="child in list | filterBy fileSearch in 'name' | orderBy 'name'">
 					<a class="mainContainerFileTitle" href="pupil/@{{ child.user_id }}">

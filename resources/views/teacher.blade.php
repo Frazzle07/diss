@@ -21,6 +21,7 @@
 					</a>
 				</li>
 			</ul>
+			
 		</template>
 
 		<div id="mainContainerTitle">
@@ -43,6 +44,7 @@
 							</a>
 						</div>
 					@endforeach
+					<?php echo $submissions->appends(Input::except('page'))->render(); ?>
 				@else
 				<p>No Submission Are Currently Active</p>
 				@endif
